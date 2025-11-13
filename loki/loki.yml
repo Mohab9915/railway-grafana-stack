@@ -42,23 +42,8 @@ limits_config:
   reject_old_samples: true
   reject_old_samples_max_age: 168h
   # Allow more time for queries in single-node setup
-  query_timeout: 5m
-  # Increase max query lines
-  max_query_length: 10000
-  # For single-node deployment
-  max_entries_limit_per_query: 5000
+  max_query_lookback: 744h
 
 table_manager:
   retention_deletes_enabled: false
   retention_period: 0s
-
-# Query settings for single-node deployment
-query_range:
-  split_queries_by_interval: 24h
-  align_queries_with_step: true
-  max_retries: 5
-
-frontend:
-  # Configure frontend for better handling of queries
-  max_outstanding_per_tenant: 2048
-  compress_responses: true
