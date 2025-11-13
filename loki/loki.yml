@@ -4,25 +4,6 @@ server:
   http_listen_port: 3100
   log_level: info
 
-# Configure Loki to work with Railway's log ingestion
-# Railway automatically forwards app logs to Loki
-# Railway uses service name as tenant
-tenant_config:
-  tenant_id: "service"
-
-# Add parsing for structured JSON logs from Fawri backend
-# This helps Loki parse the JSON logs from your structured_logging.py
-runtime_config:
-  file: /loki/runtime.yaml
-
-# Limit configurations for Railway environment
-limits_config:
-  enforce_metric_name: false
-  reject_old_samples: true
-  reject_old_samples_max_age: 168h
-  # Allow larger logs for structured JSON
-  max_line_size: 256KB
-
 ingester:
   lifecycler:
     address: 127.0.0.1
@@ -61,6 +42,11 @@ storage_config:
   tsdb_shipper:
     active_index_directory: /loki/tsdb-index
     cache_location: /loki/tsdb-cache
+
+limits_config:
+  enforce_metric_name: false
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
 
 table_manager:
   retention_deletes_enabled: false
